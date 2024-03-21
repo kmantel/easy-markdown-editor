@@ -6,14 +6,130 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Example / Preview</title>
-    <link rel="stylesheet" href="../dist/easymde.min.css">
-    <script src="../dist/easymde.min.js"></script>
+    <link rel="stylesheet" href="dist/easymde.min.css">
+    <script src="dist/easymde.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 </head>
 
 <body>
     <textarea></textarea>
     <script>
-        const easyMDE = new EasyMDE();
+        window.easymde = new EasyMDE({
+    //   element: document.getElementById('editor'),
+      autoDownloadFontAwesome: false,
+      spellChecker: false,
+      nativeSpellcheck: true,
+      inputStyle: getInputStyleForEnvironment(),
+      status: false,
+      shortcuts: {
+        toggleSideBySide: 'Cmd-Alt-P'
+      },
+      // Syntax highlighting is disabled until we figure out performance issue: https://github.com/sn-extensions/advanced-markdown-editor/pull/20#issuecomment-513811633
+      // renderingConfig: {
+      //   codeSyntaxHighlighting: true
+      // },
+      toolbar: [
+        {
+          className: 'fa fa-eye',
+          default: true,
+          name: 'preview',
+          noDisable: true,
+          title: 'Toggle Preview',
+          action: function () {
+            window.easymde.togglePreview();
+            saveMetadata();
+          }
+        },
+        {
+          className: 'fa fa-columns',
+          default: true,
+          name: 'side-by-side',
+          noDisable: true,
+          noMobile: true,
+          title: 'Toggle Side by Side',
+          action: function () {
+            window.easymde.toggleSideBySide();
+            saveMetadata();
+          }
+        },
+        '|',
+        'heading', 'bold', 'italic', 'strikethrough',
+        '|', 'quote', 'code',
+        '|', 'unordered-list', 'ordered-list',
+        '|', 'clean-block',
+        '|', 'link', 'image',
+        '|', 'table',
+        '|', 'undo', 'redo',
+        '|',
+        'outdent',
+        'indent',
+        // {
+        //   className: 'fa fa-outdent',
+        //   default: true,
+        //   name: 'outdent',
+        //   noDisable: true,
+        //   title: 'Outdent',
+        //   action: function () {
+        //     var cm = window.easymde.codemirror;
+        //     cm.execCommand('shiftTabAndUnindentMarkdownList');
+        //     cm.focus();
+        //   }
+        // },
+        // {
+        //   className: 'fa fa-indent',
+        //   default: true,
+        //   name: 'indent',
+        //   noDisable: true,
+        //   title: 'Indent',
+        //   action: function () {
+        //     var cm = window.easymde.codemirror;
+        //     cm.execCommand('tabAndIndentMarkdownList');
+        //     cm.focus();
+        //   }
+        // },
+        {
+          className: 'fa fa-search',
+          default: true,
+          name: 'search',
+          noDisable: true,
+          title: 'Find',
+          action: function() {
+            var cm = window.easymde.codemirror;
+            cm.execCommand('find');
+          }
+        }
+      ],
+    });
+    function getInputStyleForEnvironment() {
+        return 'textarea'
+        const environment = componentRelay.environment ?? 'web';
+        return environment === 'mobile' ? 'textarea' : 'contenteditable';
+    }
+
+    function saveMetadata() {
+    if (!renderNote) {
+      return;
+    }
+
+    const getEditorMode = () => {
+      const editor = window.easymde;
+
+      if (editor) {
+        if (editor.isPreviewActive()) return 'preview';
+        if (editor.isSideBySideActive()) return 'split';
+      }
+      return 'edit';
+    };
+
+    const note = workingNote;
+
+    componentRelay.saveItemWithPresave(note, () => {
+      note.clientData = {
+        ...note.clientData,
+        mode: getEditorMode()
+      };
+    });
+  }
     </script>
 </body>
 
