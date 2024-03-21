@@ -1118,17 +1118,18 @@ function outdent(editor) {
  */
 function find(editor) {
     var cm = editor.codemirror;
-    cm.openDialog(
-        createFindBox(),
-        function() {
-            // document.querySelector('.CodeMirror-dialog-top').insertBefore(
-            //     document.querySelector('.cm-s-easymde'),
-            // );
-            CodeMirror.commands.clearSearch(cm);
-            CodeMirror.commands.findNext(cm);
-        },
-        {'closeOnEnter': false},
-    );
+    // cm.openDialog(
+    //     createFindBox(),
+    //     function() {
+    //         // document.querySelector('.CodeMirror-dialog-top').insertBefore(
+    //         //     document.querySelector('.cm-s-easymde'),
+    //         // );
+    //         CodeMirror.commands.clearSearch(cm);
+    //         CodeMirror.commands.findNext(cm);
+    //     },
+    //     {'closeOnEnter': false},
+    // );
+    cm.execCommand('findPersistent');
   }
 
 
@@ -2932,28 +2933,28 @@ EasyMDE.prototype.createStatusbar = function (status) {
 };
 
 
-function createFindBox() {
-    // // var box = document.createElement('div');
-    // box.className = 'CodeMirror-dialog CodeMirror-dialog-top';
-    // box.style.marginTop = '60px';
-    // box.style.position = 'relative';
+// function createFindBox() {
+//     // // var box = document.createElement('div');
+//     // box.className = 'CodeMirror-dialog CodeMirror-dialog-top';
+//     // box.style.marginTop = '60px';
+//     // box.style.position = 'relative';
 
-    // var box = document.querySelector('.CodeMirror-dialog-top');
-    // if (box === null) {
-    //     return '';
-    // }
-    var box = document.createElement('div');
-    box.className = 'CodeMirror-dialog CodeMirror-dialog-top';
-    // create stuff
-    var input_field = document.createElement('input');
-    input_field.className = '.CodeMirror-search-field';
-    var prev_arrow = document.createElement('span');
-    prev_arrow.className = 'fa fa-arrow-up';
-    box.appendChild(input_field);
-    box.appendChild(prev_arrow);
+//     // var box = document.querySelector('.CodeMirror-dialog-top');
+//     // if (box === null) {
+//     //     return '';
+//     // }
+//     var box = document.createElement('div');
+//     box.className = 'CodeMirror-dialog CodeMirror-dialog-top';
+//     // create stuff
+//     var input_field = document.createElement('input');
+//     input_field.className = '.CodeMirror-search-field';
+//     var prev_arrow = document.createElement('span');
+//     prev_arrow.className = 'fa fa-arrow-up';
+//     box.appendChild(input_field);
+//     box.appendChild(prev_arrow);
 
-    return box.innerHTML;
-}
+//     return box.innerHTML;
+// }
 
 /**
  * Get or set the text content.
@@ -3009,6 +3010,8 @@ EasyMDE.toggleSideBySide = toggleSideBySide;
 EasyMDE.toggleFullScreen = toggleFullScreen;
 EasyMDE.indent = indent;
 EasyMDE.outdent = outdent;
+EasyMDE.find = find;
+EasyMDE.CodeMirror = CodeMirror;
 
 /**
  * Bind instance methods for exports.

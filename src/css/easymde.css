@@ -61,9 +61,16 @@
 }
 
 .CodeMirror-dialog-top {
-    position: relative;
-    padding-top: 60px;
-    float: right;
+    position: fixed;
+    display: inline-block;
+    overflow: auto;
+    margin-top: 65px;
+    margin-left: 75%;
+    width: fit-content;
+}
+
+.CodeMirror-dialog input {
+    font-family: inherit;
 }
 
 .editor-toolbar {
@@ -132,7 +139,7 @@
     width: 100%;
 }
 
-.editor-toolbar button, .editor-toolbar .easymde-dropdown {
+.editor-toolbar button, .editor-toolbar .easymde-dropdown, .editor-toolbar div {
     background: transparent;
     display: inline-block;
     text-align: center;
@@ -145,7 +152,7 @@
     cursor: pointer;
 }
 
-.editor-toolbar button {
+.editor-toolbar button, .editor-toolbar div {
     font-weight: bold;
     min-width: 30px;
     padding: 0 6px;
