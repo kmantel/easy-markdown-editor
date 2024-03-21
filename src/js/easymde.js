@@ -5,6 +5,7 @@ require('./codemirror/tablist');
 require('codemirror/addon/display/fullscreen.js');
 require('codemirror/mode/markdown/markdown.js');
 require('codemirror/addon/mode/overlay.js');
+require('codemirror/addon/dialog/dialog.js');
 require('codemirror/addon/display/placeholder.js');
 require('codemirror/addon/display/autorefresh.js');
 require('codemirror/addon/selection/mark-selection.js');
@@ -49,6 +50,7 @@ var bindings = {
     'toggleFullScreen': toggleFullScreen,
     'indent': indent,
     'outdent': outdent,
+    'find': find,
 };
 
 var shortcuts = {
@@ -72,6 +74,7 @@ var shortcuts = {
     'togglePreview': 'Cmd-P',
     'toggleSideBySide': 'F9',
     'toggleFullScreen': 'F11',
+    'find': 'Cmd-F',
 };
 
 var getBindingName = function (f) {
@@ -1106,6 +1109,29 @@ function outdent(editor) {
 }
 
 
+// CodeMirror.prototype.openDialog = function (template, callback, options) {
+// }
+
+/**
+ * Find action.
+ * @param {EasyMDE} editor
+ */
+function find(editor) {
+    var cm = editor.codemirror;
+    cm.openDialog(
+        createFindBox(),
+        function() {
+            // document.querySelector('.CodeMirror-dialog-top').insertBefore(
+            //     document.querySelector('.cm-s-easymde'),
+            // );
+            CodeMirror.commands.clearSearch(cm);
+            CodeMirror.commands.findNext(cm);
+        },
+        {'closeOnEnter': false},
+    );
+  }
+
+
 function _replaceSelection(cm, active, startEnd, url) {
     if (cm.getWrapperElement().lastChild.classList.contains('editor-preview-active'))
         return;
@@ -1511,6 +1537,7 @@ var iconClassMap = {
     'redo': 'fa fa-repeat fa-redo',
     'indent': 'fa fa-indent',
     'outdent': 'fa fa-outdent',
+    'find': 'fa fa-search',
 };
 
 var toolbarBuiltInButtons = {
@@ -1716,6 +1743,13 @@ var toolbarBuiltInButtons = {
         noDisable: true,
         title: 'Outdent',
     },
+    'find': {
+        name: 'find',
+        action: find,
+        className: iconClassMap['find'],
+        noDisable: true,
+        title: 'Find',
+      },
 };
 
 var insertTexts = {
@@ -2896,6 +2930,30 @@ EasyMDE.prototype.createStatusbar = function (status) {
     cmWrapper.parentNode.insertBefore(bar, cmWrapper.nextSibling);
     return bar;
 };
+
+
+function createFindBox() {
+    // // var box = document.createElement('div');
+    // box.className = 'CodeMirror-dialog CodeMirror-dialog-top';
+    // box.style.marginTop = '60px';
+    // box.style.position = 'relative';
+
+    // var box = document.querySelector('.CodeMirror-dialog-top');
+    // if (box === null) {
+    //     return '';
+    // }
+    var box = document.createElement('div');
+    box.className = 'CodeMirror-dialog CodeMirror-dialog-top';
+    // create stuff
+    var input_field = document.createElement('input');
+    input_field.className = '.CodeMirror-search-field';
+    var prev_arrow = document.createElement('span');
+    prev_arrow.className = 'fa fa-arrow-up';
+    box.appendChild(input_field);
+    box.appendChild(prev_arrow);
+
+    return box.innerHTML;
+}
 
 /**
  * Get or set the text content.

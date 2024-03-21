@@ -15,7 +15,7 @@
     <textarea></textarea>
     <script>
         window.easymde = new EasyMDE({
-    //   element: document.getElementById('editor'),
+      // element: document.getElementById('editor'),
       autoDownloadFontAwesome: false,
       spellChecker: false,
       nativeSpellcheck: true,
@@ -63,41 +63,19 @@
         '|',
         'outdent',
         'indent',
+        '|',
+        'find',
         // {
-        //   className: 'fa fa-outdent',
+        //   className: 'fa fa-search',
         //   default: true,
-        //   name: 'outdent',
+        //   name: 'find',
         //   noDisable: true,
-        //   title: 'Outdent',
-        //   action: function () {
+        //   title: 'Find',
+        //   action: function() {
         //     var cm = window.easymde.codemirror;
-        //     cm.execCommand('shiftTabAndUnindentMarkdownList');
-        //     cm.focus();
+        //     cm.execCommand('find');
         //   }
-        // },
-        // {
-        //   className: 'fa fa-indent',
-        //   default: true,
-        //   name: 'indent',
-        //   noDisable: true,
-        //   title: 'Indent',
-        //   action: function () {
-        //     var cm = window.easymde.codemirror;
-        //     cm.execCommand('tabAndIndentMarkdownList');
-        //     cm.focus();
-        //   }
-        // },
-        {
-          className: 'fa fa-search',
-          default: true,
-          name: 'search',
-          noDisable: true,
-          title: 'Find',
-          action: function() {
-            var cm = window.easymde.codemirror;
-            cm.execCommand('find');
-          }
-        }
+        // }
       ],
     });
     function getInputStyleForEnvironment() {

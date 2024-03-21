@@ -22,6 +22,7 @@
         "@types/codemirror": "^5.60.4",
         "@types/marked": "^4.0.7",
         "codemirror": "^5.63.1",
+        "codemirror-revisedsearch": "^1.0.12",
         "codemirror-spell-checker": "1.1.2",
         "marked": "^4.1.0"
     },

@@ -23,6 +23,7 @@ var banner = ['/**',
 
 var css_files = [
     './node_modules/codemirror/lib/codemirror.css',
+    './node_modules/codemirror/addon/dialog/dialog.css',
     './src/css/*.css',
     './node_modules/codemirror-spell-checker/src/css/spell-checker.css',
 ];
