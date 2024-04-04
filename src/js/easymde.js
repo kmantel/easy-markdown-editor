@@ -75,6 +75,7 @@ var shortcuts = {
     'toggleSideBySide': 'F9',
     'toggleFullScreen': 'F11',
     'find': 'Cmd-F',
+    'toggleStrikethrough': 'Shift-Cmd-L',
 };
 
 var getBindingName = function (f) {
