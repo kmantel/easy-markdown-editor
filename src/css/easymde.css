@@ -414,3 +414,13 @@ span[data-img-src]::after {
     width: var(--width);
     background-repeat: no-repeat;
 }
+
+/* Remove side preview on narrow screens */
+@media only screen and (max-width: 700px) {
+    .EasyMDEContainer .CodeMirror-sided {
+        width: 100% !important;
+    }
+    .editor-preview-side {
+        display: none !important;
+    }
+}
