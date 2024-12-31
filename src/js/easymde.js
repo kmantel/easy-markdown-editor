@@ -78,7 +78,6 @@ var shortcuts = {
     'toggleStrikethrough': 'Shift-Cmd-L',
 };
 
-var dialog_top_sided_css_class = 'CodeMirror-dialog-top-sided';
 
 var getBindingName = function (f) {
     for (var key in bindings) {
@@ -964,8 +963,6 @@ function toggleSideBySide(editor) {
 
     var easyMDEContainer = wrapper.parentNode;
 
-    var dialog_top_elem = document.querySelector('.CodeMirror-dialog-top');
-
     if (preview.classList.contains('editor-preview-active-side')) {
         if (editor.options.sideBySideFullscreen === false) {
             // if side-by-side not-fullscreen ok, remove classes when hiding side
@@ -974,9 +971,6 @@ function toggleSideBySide(editor) {
         preview.classList.remove('editor-preview-active-side');
         if (toolbarButton) toolbarButton.classList.remove('active');
         wrapper.classList.remove('CodeMirror-sided');
-        if (dialog_top_elem !== null) {
-            dialog_top_elem.classList.remove(dialog_top_sided_css_class);
-        }
     } else {
         // When the preview button is clicked for the first time,
         // give some time for the transition from editor.css to fire and the view to slide from right to left,
@@ -995,9 +989,6 @@ function toggleSideBySide(editor) {
         if (toolbarButton) toolbarButton.classList.add('active');
         wrapper.classList.add('CodeMirror-sided');
         useSideBySideListener = true;
-        if (dialog_top_elem !== null) {
-            dialog_top_elem.classList.add(dialog_top_sided_css_class);
-        }
     }
 
     // Hide normal preview if active
@@ -1030,6 +1021,8 @@ function toggleSideBySide(editor) {
     } else {
         cm.off('update', cm.sideBySideRenderingFunction);
     }
+
+    set_search_side_by_side(cm);
 
     // Refresh to fix selection being off (#309)
     cm.refresh();
@@ -1123,15 +1116,29 @@ function outdent(editor) {
 // CodeMirror.prototype.openDialog = function (template, callback, options) {
 // }
 
+function set_search_side_by_side(cm) {
+    var dialog_top_elem = document.querySelector('.CodeMirror-dialog-top');
+    if (dialog_top_elem === null) {
+        return;
+    }
+
+    var wrapper = cm.getWrapperElement();
+    var dialog_top_sided_css_class = 'CodeMirror-dialog-side-by-side-enabled';
+
+    if (wrapper.classList.contains('CodeMirror-sided')) {
+        dialog_top_elem.classList.add(dialog_top_sided_css_class);
+    }
+    else if (dialog_top_elem.classList.contains(dialog_top_sided_css_class)) {
+        dialog_top_elem.classList.remove(dialog_top_sided_css_class);
+    }
+}
+
 /**
  * Find action.
  * @param {EasyMDE} editor
  */
 function find(editor) {
     var cm = editor.codemirror;
-    var wrapper = cm.getWrapperElement();
-    var dialog_top_elem;
-
     // cm.openDialog(
     //     createFindBox(),
     //     function() {
@@ -1144,10 +1151,10 @@ function find(editor) {
     //     {'closeOnEnter': false},
     // );
     cm.execCommand('findPersistent');
-    dialog_top_elem = document.querySelector('.CodeMirror-dialog-top');
-    if (wrapper.classList.contains(dialog_top_sided_css_class)) {
-        dialog_top_elem.classList.add(dialog_top_sided_css_class);
-    }
+
+    // undo forced width
+    document.querySelector('.CodeMirror-search-field').style.width = null;
+    set_search_side_by_side(cm);
   }
 
 
@@ -2711,6 +2718,9 @@ EasyMDE.prototype.createSideBySide = function () {
         var move = (cm.getScrollInfo().height - cm.getScrollInfo().clientHeight) * ratio;
         cm.scrollTo(0, move);
     };
+
+    set_search_side_by_side(cm);
+
     return preview;
 };
 

@@ -67,12 +67,39 @@
     margin-top: 55px;
     width: 13em;
 }
-.CodeMirror-dialog-top:not(.CodeMirror-dialog-top-sided) {
+
+@media screen and (max-width: 525px) {
+    .CodeMirror-dialog-top {
+        margin-top: 80px;
+        margin-left: 50%;
+    }
+}
+
+.CodeMirror-dialog-top:not(.CodeMirror-dialog-side-by-side-enabled) {
+    max-width: 30%;
+}
+
+.CodeMirror-dialog-top:not(.CodeMirror-dialog-side-by-side-enabled) {
     margin-left: 50%;
 }
-.CodeMirror-dialog-top.CodeMirror-dialog-top-sided {
+
+.CodeMirror-dialog-top.CodeMirror-dialog-side-by-side-enabled {
     margin-left: 20%;
+    max-width: 24%;
 }
+
+/* 557px is next arrow shift */
+/* Remove side preview on narrow screens */
+@media only screen and (max-width: 700px) {
+    .CodeMirror-dialog-top.CodeMirror-dialog-side-by-side-enabled {
+        max-width: 30%;
+        margin-left: 50%;
+    }
+}
+.CodeMirror-search-field {
+    max-width: 75%
+}
+
 /* input.CodeMirror-search-field {
     width: 7em !important;  /* was auto set to 10em */
 /* } */
