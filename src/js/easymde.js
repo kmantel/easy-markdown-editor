@@ -78,6 +78,8 @@ var shortcuts = {
     'toggleStrikethrough': 'Shift-Cmd-L',
 };
 
+var dialog_top_sided_css_class = 'CodeMirror-dialog-top-sided';
+
 var getBindingName = function (f) {
     for (var key in bindings) {
         if (bindings[key] === f) {
@@ -962,6 +964,8 @@ function toggleSideBySide(editor) {
 
     var easyMDEContainer = wrapper.parentNode;
 
+    var dialog_top_elem = document.querySelector('.CodeMirror-dialog-top');
+
     if (preview.classList.contains('editor-preview-active-side')) {
         if (editor.options.sideBySideFullscreen === false) {
             // if side-by-side not-fullscreen ok, remove classes when hiding side
@@ -970,6 +974,9 @@ function toggleSideBySide(editor) {
         preview.classList.remove('editor-preview-active-side');
         if (toolbarButton) toolbarButton.classList.remove('active');
         wrapper.classList.remove('CodeMirror-sided');
+        if (dialog_top_elem !== null) {
+            dialog_top_elem.classList.remove(dialog_top_sided_css_class);
+        }
     } else {
         // When the preview button is clicked for the first time,
         // give some time for the transition from editor.css to fire and the view to slide from right to left,
@@ -988,6 +995,9 @@ function toggleSideBySide(editor) {
         if (toolbarButton) toolbarButton.classList.add('active');
         wrapper.classList.add('CodeMirror-sided');
         useSideBySideListener = true;
+        if (dialog_top_elem !== null) {
+            dialog_top_elem.classList.add(dialog_top_sided_css_class);
+        }
     }
 
     // Hide normal preview if active
@@ -1119,6 +1129,9 @@ function outdent(editor) {
  */
 function find(editor) {
     var cm = editor.codemirror;
+    var wrapper = cm.getWrapperElement();
+    var dialog_top_elem;
+
     // cm.openDialog(
     //     createFindBox(),
     //     function() {
@@ -1131,6 +1144,10 @@ function find(editor) {
     //     {'closeOnEnter': false},
     // );
     cm.execCommand('findPersistent');
+    dialog_top_elem = document.querySelector('.CodeMirror-dialog-top');
+    if (wrapper.classList.contains(dialog_top_sided_css_class)) {
+        dialog_top_elem.classList.add(dialog_top_sided_css_class);
+    }
   }
 
 

@@ -65,9 +65,42 @@
     display: inline-block;
     overflow: auto;
     margin-top: 55px;
-    margin-left: 25%;
-    width: fit-content;
+    width: 13em;
 }
+.CodeMirror-dialog-top:not(.CodeMirror-dialog-top-sided) {
+    margin-left: 50%;
+}
+.CodeMirror-dialog-top.CodeMirror-dialog-top-sided {
+    margin-left: 20%;
+}
+/* input.CodeMirror-search-field {
+    width: 7em !important;  /* was auto set to 10em */
+/* } */
+
+/* @media screen and (min-width: 481px) and (max-width: 525px) {
+    .CodeMirror-dialog-top {
+        margin-top: 80px;
+        margin-left: 50%;
+    }
+}
+@media screen and (max-width: 480px) {
+    .CodeMirror-dialog-top {
+        margin-top: 80px;
+        margin-left: 40%;
+    }
+}
+@media
+    only screen and (-webkit-min-device-pixel-ratio: 3.5),
+    only screen and (   min--moz-device-pixel-ratio: 3.5),
+    only screen and (     -o-min-device-pixel-ratio: 3.5/1),
+    only screen and (        min-device-pixel-ratio: 3.5),
+    only screen and (                min-resolution: 537dpi),
+    only screen and (                min-resolution: 3.5dppx) {
+    .CodeMirror-dialog-top {
+        margin-top: 80px;
+        margin-left: 50%;
+    }
+} */
 
 .CodeMirror-dialog input {
     font-family: inherit;
