@@ -1150,10 +1150,19 @@ function find(editor) {
     //     },
     //     {'closeOnEnter': false},
     // );
-    cm.execCommand('findPersistent');
 
-    // undo forced width
-    document.querySelector('.CodeMirror-search-field').style.width = null;
+    var dialog_top_elem = document.querySelector('.CodeMirror-dialog-top');
+    if (dialog_top_elem === null) {
+        cm.execCommand('findPersistent');
+        // undo forced width
+        document.querySelector('.CodeMirror-search-field').style.width = null;
+    }
+    else {
+        cm.execCommand('clearSearch');
+        dialog_top_elem.parentNode.removeChild(dialog_top_elem);
+        cm.focus();
+    }
+
     set_search_side_by_side(cm);
   }
 
