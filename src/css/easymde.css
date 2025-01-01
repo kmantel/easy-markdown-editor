@@ -68,15 +68,13 @@
     width: 13em;
 }
 
-@media screen and (max-width: 525px) {
-    .CodeMirror-dialog-top {
-        margin-top: 80px;
-        margin-left: 50%;
-    }
+.CodeMirror-search-field {
+    max-width: 75%
 }
 
+
 .CodeMirror-dialog-top:not(.CodeMirror-dialog-side-by-side-enabled) {
-    max-width: 30%;
+    max-width: 37%;
 }
 
 .CodeMirror-dialog-top:not(.CodeMirror-dialog-side-by-side-enabled) {
@@ -85,19 +83,25 @@
 
 .CodeMirror-dialog-top.CodeMirror-dialog-side-by-side-enabled {
     margin-left: 20%;
-    max-width: 24%;
 }
 
-/* 557px is next arrow shift */
+/* explore flex container and flex-grow/flex-shrink for children */
+
+@media screen and (max-width: 557px) {
+    .CodeMirror-dialog-top {
+        margin-top: 80px;
+    }
+    .CodeMirror-search-field {
+        max-width: 72%
+    }
+}
+
 /* Remove side preview on narrow screens */
 @media only screen and (max-width: 700px) {
     .CodeMirror-dialog-top.CodeMirror-dialog-side-by-side-enabled {
-        max-width: 30%;
         margin-left: 50%;
+        max-width: 37%;
     }
-}
-.CodeMirror-search-field {
-    max-width: 75%
 }
 
 /* input.CodeMirror-search-field {
