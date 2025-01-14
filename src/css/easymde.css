@@ -484,3 +484,35 @@ span[data-img-src]::after {
         display: none !important;
     }
 }
+
+ul ul ul ul {
+    list-style-type: circle;
+}
+
+ul ul ul ul ul {
+    list-style-type: disc;
+}
+
+ul ul ul ul ul ul {
+    list-style-type: circle;
+}
+
+ul ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+ul ul ul ul ul ul ul ul {
+    list-style-type: circle;
+}
+
+ul ul ul ul ul ul ul ul ul {
+    list-style-type: disc;
+}
+
+ul ul ul ul ul ul ul ul ul ul {
+    list-style-type: circle;
+}
+
+ul ul ul ul ul ul ul ul ul ul ul {
+    list-style-type: square;
+}
