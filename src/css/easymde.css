@@ -60,11 +60,22 @@
     background: #d9d9d9;
 }
 
+
+:root {
+    --search-dialog-margin-top: 55px;
+}
+
+@media screen and (max-width: 557px) {
+    :root {
+        --search-dialog-margin-top: 80px;
+    }
+}
+
 .CodeMirror-dialog-top {
     position: fixed;
     display: inline-block;
     overflow: auto;
-    margin-top: 55px;
+    margin-top: var(--search-dialog-margin-top);
     width: 13em;
 }
 
@@ -88,9 +99,6 @@
 /* explore flex container and flex-grow/flex-shrink for children */
 
 @media screen and (max-width: 557px) {
-    .CodeMirror-dialog-top {
-        margin-top: 80px;
-    }
     .CodeMirror-search-field {
         max-width: 72%
     }
