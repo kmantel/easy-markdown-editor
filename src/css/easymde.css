@@ -5,6 +5,11 @@
     --easymd-find-background: #ffa;
     --easymd-find-result-background: color-mix(in srgb, var(--easymd-find-result-base-background) 40%, transparent);
     --easymd-find-result-foreground: inherit;
+
+    --easymd-find-result-selected-base-background: var(--easymd-find-result-base-background);
+    --easymd-find-result-selected-background: var(--easymd-find-result-selected-base-background);
+    --easymd-find-result-selected-background: color-mix(in srgb, var(--easymd-find-result-selected-base-background) 90%, transparent);
+    --easymd-find-result-selected-foreground: black;
 }
 
 .EasyMDEContainer {
@@ -537,4 +542,9 @@ ul ul ul ul ul ul ul ul ul ul ul {
 .cm-searching {
     background-color: var(--easymd-find-result-background);
     color: var(--easymd-find-result-foreground);
+}
+
+.cm-searching-selected {
+    background-color: var(--easymd-find-result-selected-background);
+    color: var(--easymd-find-result-selected-foreground);
 }
