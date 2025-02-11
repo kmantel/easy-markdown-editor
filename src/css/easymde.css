@@ -1,3 +1,12 @@
+:root {
+    /* defaults from codemirror */
+    --easymd-find-result-base-background: #ffff00;
+
+    --easymd-find-background: #ffa;
+    --easymd-find-result-background: color-mix(in srgb, var(--easymd-find-result-base-background) 40%, transparent);
+    --easymd-find-result-foreground: inherit;
+}
+
 .EasyMDEContainer {
     display: block;
 }
@@ -523,4 +532,9 @@ ul ul ul ul ul ul ul ul ul ul {
 
 ul ul ul ul ul ul ul ul ul ul ul {
     list-style-type: square;
+}
+
+.cm-searching {
+    background-color: var(--easymd-find-result-background);
+    color: var(--easymd-find-result-foreground);
 }
