@@ -44,11 +44,27 @@ function scripts() {
         .pipe(gulp.dest('./dist/'));
 }
 
+function scripts_dev() {
+    return browserify({entries: './src/js/easymde.js', standalone: 'EasyMDE'}).bundle()
+        .pipe(source('easymde.js'))
+        .pipe(buffer())
+        .pipe(header(banner, {pkg: pkg}))
+        .pipe(gulp.dest('./dist/'));
+}
+
 function styles() {
     return gulp.src(css_files)
         .pipe(concat('easymde.css'))
         .pipe(cleanCSS())
         .pipe(rename('easymde.min.css'))
+        .pipe(buffer())
+        .pipe(header(banner, {pkg: pkg}))
+        .pipe(gulp.dest('./dist/'));
+}
+
+function styles_dev() {
+    return gulp.src(css_files)
+        .pipe(concat('easymde.css'))
         .pipe(buffer())
         .pipe(header(banner, {pkg: pkg}))
         .pipe(gulp.dest('./dist/'));
@@ -60,8 +76,16 @@ function watch() {
     gulp.watch(css_files, styles);
 }
 
+function watch_dev() {
+    gulp.watch('./src/js/**/*.js', scripts_dev);
+    gulp.watch(css_files, styles_dev);
+}
+
 var build = gulp.parallel(gulp.series(lint, scripts), styles);
+var build_dev = gulp.parallel(gulp.series(lint, scripts_dev), styles_dev);
 
 gulp.task('default', build);
+gulp.task('default_dev', build_dev);
 gulp.task('watch', gulp.series(build, watch));
+gulp.task('watch_dev', gulp.series(build_dev, watch_dev));
 gulp.task('lint', lint);
